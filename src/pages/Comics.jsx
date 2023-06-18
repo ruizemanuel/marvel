@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Container, Navbar, Row } from 'react-bootstrap'
-import ComicItem from '../components/ComicItem'
+import Item from '../components/Item'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import PageNumbers from '../components/PageNumbers'
@@ -48,7 +48,14 @@ export default function Comics() {
           {
             searchedComics.map((comic) => {
               return <Col key={comic.id} className='d-flex justify-content-center'>
-                <ComicItem comic={comic}></ComicItem>
+                <Item item={comic} 
+                backgroundColor={'#ed1d24'} 
+                colorBarra={'#1e1e1e'} 
+                colorBarra3={'#d81d23'} 
+                colorBarra4={'#b91e23'}
+                colorBarra5={'#851d21'}
+                colorBarra6={'#511d1f'}
+                ></Item>
               </Col>
             })
           }

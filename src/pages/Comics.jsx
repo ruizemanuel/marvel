@@ -3,12 +3,14 @@ import { Col, Container, Navbar, Row } from 'react-bootstrap'
 import ComicItem from '../components/ComicItem'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import PageNumbers from '../components/PageNumbers'
 
 export default function Comics() {
 
   const [comics, setComics] = useState([])
   const [searchedComics, setSearchedComics] = useState([])
   const [currentPage, setCurrentPage] = useState(1);
+
   const itemsPerPage = 6
   const paginas = []
   for (let i = 1; i <= Math.ceil(comics.length / itemsPerPage); i++) {
@@ -33,63 +35,6 @@ export default function Comics() {
 
   }
 
-  const handleClickPage = (e) => {
-    const ultimoItem = Number(e.target.id) * itemsPerPage
-    const primerItem = ultimoItem - itemsPerPage
-    setSearchedComics(comics.slice(primerItem, ultimoItem))
-    setCurrentPage(Number(e.target.id))
-  }
-
-  const handleClickArrow = (e, currentPage) => {
-    if (currentPage !== paginas.length) {
-      const numPagina = currentPage + 1
-      const ultimoItem = numPagina * itemsPerPage
-      const primerItem = ultimoItem - itemsPerPage
-      setSearchedComics(comics.slice(primerItem, ultimoItem))
-      setCurrentPage(numPagina)
-    }
-
-  }
-
-
-
-
-  const renderPageNumbers = paginas.map((num, index) => {
-    return <div key={index} className='d-flex align-items-center'>
-
-      <div style={currentPage === num ?
-        { fontSize: '22px', cursor: 'pointer', backgroundColor: '#ed1d24', color: 'white' }
-        :
-        { fontSize: '22px', cursor: 'pointer' }}
-        className='px-2'
-        id={num}
-        onClick={(e) => handleClickPage(e)}>{num}</div>
-
-      {paginas.length === num ?
-
-        <FontAwesomeIcon style={currentPage !== paginas.length ?
-          { fontSize: '22px', color: 'black', cursor: 'pointer', marginLeft: '2px' }
-          :
-          { fontSize: '22px', color: 'lightgray', marginLeft: '2px' }
-        }
-          icon={faArrowRight}
-          onClick={(e) => handleClickArrow(e, currentPage)}></FontAwesomeIcon>
-        :
-        <div style={{
-          height: '5px',
-          width: '5px',
-          marginLeft: '2px',
-          marginRight: '2px',
-          borderRadius: '10px',
-          backgroundColor: 'black',
-        }}></div>
-      }
-
-
-
-    </div>
-
-  })
 
   useEffect(() => {
     getComics()
@@ -110,7 +55,16 @@ export default function Comics() {
         </Row>
       </Container>
       <div className='d-flex justify-content-center mb-4'>
-        {renderPageNumbers}
+        {paginas.map((num, index) => {
+          return <PageNumbers key={index} 
+          num={num} 
+          paginas={paginas} 
+          setSearchedItems={setSearchedComics} 
+          items={comics} 
+          itemsPerPage={itemsPerPage} 
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage} />
+        })}
       </div>
 
     </>

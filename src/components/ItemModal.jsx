@@ -4,52 +4,25 @@ import { Link } from 'react-router-dom';
 
 export default function ItemModal({ show, setShow, item }) {
 
-  const apiRef = useRef(null)
+  const itemRef = useRef(null)
 
+  //Solo los comics tienen una propiedad title
   if (item.title) {
-    apiRef.current = 'characters'
-  } else {
-    apiRef.current = 'comics'
+    const { date } = item.dates.find((date) => date.type === "onsaleDate");
+    const fecha = new Date(date);
+    const opciones = { month: 'long', day: 'numeric', year: 'numeric' };
+    const fechaFormateada = fecha.toLocaleDateString('en-US', opciones);
+
+    itemRef.current = { fecha: fechaFormateada }
   }
 
-  const [itemsToShow, setItemsToShow] = useState(item[apiRef.current].items.slice(0, 4))
-  console.log('PERSONAJE', item[apiRef.current].items.slice(0, 4))
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 4
-  const ultimaPagina = Math.ceil(item[apiRef.current].items.length / itemsPerPage)
   const handleClose = () => setShow(false)
 
-  // useEffect(() => {
-  //     setCharactersToShow([...])
-  // }, [])
+  console.log('EL ITEM', item)
 
-  const handleSiguiente = () => {
-    if (currentPage !== ultimaPagina) {
-      const pagina = currentPage + 1
-      const ultimoItem = pagina * itemsPerPage
-      const primerItem = ultimoItem - itemsPerPage
-      setItemsToShow(item[apiRef.current].items.slice(primerItem, ultimoItem))
-      setCurrentPage(pagina)
-    }
-
-
-
-  }
-
-  const handleAnterior = () => {
-    if (currentPage !== 1) {
-      const pagina = currentPage - 1
-      const ultimoItem = pagina * itemsPerPage
-      const primerItem = ultimoItem - itemsPerPage
-      setItemsToShow(item[apiRef.current].items.slice(primerItem, ultimoItem))
-      setCurrentPage(pagina)
-    }
-
-  }
 
   return (
     <Modal show={show} onHide={handleClose} animation={false} className='px-3 py-4'>
-
 
       <div style={{ border: '1px solid #1e1e1e', position: 'relative' }}>
         <img className='img-modal' src={`${item.thumbnail.path + '.' + item.thumbnail.extension}`} alt="item" />
@@ -57,9 +30,50 @@ export default function ItemModal({ show, setShow, item }) {
       </div>
       <div className='body-container-modal'>
         {item.title ?
-          <div className='d-flex justify-content-between' >
+          <div>
             <div className='title-modal text-truncate' >{item.title}</div>
-            <div className='title-modal'>{`N#${item.issueNumber}`}</div>
+            <table>
+              <tr className='description-modal' >
+                <td >published:</td>
+                <td >{itemRef.current.fecha}</td>
+              </tr>
+              <tr className='description-modal'>
+                <td >writer:</td>
+                <td className='description-modal-writer' >
+                  {item.creators.items.map((item) => {
+                    if (item.role.includes('writer')) {
+                      return <div className='description-modal-writer-item'>{item.name}</div>
+                    } else {
+                      return null
+                    }
+
+                  })}
+
+                </td>
+              </tr>
+              <tr className='description-modal'>
+                <td >penciller:</td>
+                <td className='description-modal-writer' >
+                  {item.creators.items.map((item) => {
+                    if (item.role.includes('penciller')) {
+                      return <div className='description-modal-writer-item'>{item.name}</div>
+                    } else {
+                      return null
+                    }
+
+                  })}
+
+                </td>
+              </tr>
+              <tr className='description-modal' >
+                <td >Nº pages:</td>
+                {item.pageCount !== 0 ? <td >{item.pageCount}</td> : <td >not available</td>}
+
+              </tr>
+            </table>
+
+
+
           </div>
           :
           <div>
@@ -67,56 +81,31 @@ export default function ItemModal({ show, setShow, item }) {
           </div>
         }
 
-        <div className='description-modal'>{item.description ? item.description : 'Description not available'}</div>
-        <div className='lista-items-modal'>
-
-          {
-
-            item[apiRef.current].available !== 0 ?
-
-              <div>
-                <div className='mt-2'>{`${apiRef.current}:`}</div>
-                <ul>
-                  {itemsToShow.map((item, index) => {
-                    return <li key={index}>
-                      {item.name}
-                    </li>
-                  })}
-                </ul>
-                <div className='d-flex justify-content-center'>
-                  <div style={currentPage === 1 ? { color: 'lightgray' } : { cursor: 'pointer' }} className='me-3' onClick={handleAnterior}>Anterior</div>
-                  <div style={currentPage === ultimaPagina ? { color: 'lightgray' } : { cursor: 'pointer' }} onClick={handleSiguiente}>Siguiente</div>
-                </div>
-
-              </div>
-              :
-              <div>{`${apiRef.current} not available`}</div>
 
 
-          }
 
-          {
-            item.title ?
-              <Link
-                to={`/comics/${item.id}`}
-                className="ver-detalle-modal"
-              >
-                Ver detalle
-              </Link>
-              :
+        {
+          item.title ?
+            <Link
+              to={`/comics/${item.id}`}
+              className="ver-detalle-modal"
+            >
+              Ver detalle
+            </Link>
+            :
 
-              <Link
-                to={`/characters/${item.id}`}
-                className="ver-detalle-modal"
-              >
-                Ver detalle
-              </Link>
-          }
+            <Link
+              to={`/characters/${item.id}`}
+              className="ver-detalle-modal"
+            >
+              Ver detalle
+            </Link>
+        }
 
 
 
 
-        </div>
+
 
       </div>
 

@@ -32,7 +32,7 @@
         padding-right: 80px;
     }
 
-    .barras-container-navbar{
+    .barras-container-navbar {
         position: absolute;
         right: 0;
         top: 0;
@@ -191,31 +191,64 @@
     }
 
     .description-modal {
-        color: black;
-        line-height: 1;
-        font-family: 'Roboto', sans-serif;
-        font-size: 20px;
-        overflow: hidden;
-        display: -webkit-box;
-        -webkit-line-clamp: 4;
-        /* Número de líneas permitidas */
-        -webkit-box-orient: vertical;
-        text-overflow: ellipsis;
+        color: #ed1d24;
+        font-size: 22px;
+        display: flex;
+
     }
+
+    .description-modal-writer {
+        color: #ed1d24;
+        font-size: 22px;
+    }
+
+    .description-modal-writer-item {
+        color: #ed1d24;
+        font-size: 22px;
+        display: inline-block;
+    }
+
+    .description-modal-writer-item::after {
+        content: ',';
+    }
+
+    .description-modal-writer-item:last-child::after {
+        content: '';
+    }
+
+    table {
+        border-collapse: collapse;
+      }
+      
+      td {
+        padding: 5px;
+        text-align: left;
+      }
+      
+      td:first-child {
+        width: 90px;
+        white-space: nowrap;
+      }
 
     .lista-items-modal {
         color: #ed1d24;
         font-size: 25px;
     }
 
-    .ver-detalle-modal{
+    .ver-detalle-modal {
         position: absolute;
         right: 0;
         bottom: 0;
         text-decoration: none;
-        padding-right: 10px;
-        color: #ed1d24;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        padding: 5px;
+        border-radius: 5px;
+        font-size: 25px;
+        color: white;
+        background-color: #ed1d24;
         cursor: pointer;
+        text-align: center;
     }
 
     /* Estilos de pagina de ItemPageCharacters */
@@ -233,7 +266,7 @@
         font-family: 'Roboto', sans-serif;
         font-size: 20px;
         margin-bottom: 10px;
-        
+
     }
 
     .body-container-page {

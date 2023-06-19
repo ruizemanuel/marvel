@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react'
 import Modal from 'react-bootstrap/Modal';
+import { Link } from 'react-router-dom';
 
 export default function ItemModal({ show, setShow, item }) {
 
@@ -93,6 +94,26 @@ export default function ItemModal({ show, setShow, item }) {
 
 
           }
+
+          {
+            item.title ?
+              <Link
+                to={`/comics/${item.id}`}
+                className="ver-detalle-modal"
+              >
+                Ver detalle
+              </Link>
+              :
+
+              <Link
+                to={`/characters/${item.id}`}
+                className="ver-detalle-modal"
+              >
+                Ver detalle
+              </Link>
+          }
+
+
 
 
         </div>

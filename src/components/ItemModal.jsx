@@ -61,7 +61,7 @@ export default function ItemModal({ show, setShow, item }) {
             <div className='title-modal'>{`N#${item.issueNumber}`}</div>
           </div>
           :
-          <div className='d-flex justify-content-between' >
+          <div>
             <div className='title-modal text-truncate' >{item.name}</div>
           </div>
         }

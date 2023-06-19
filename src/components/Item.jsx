@@ -58,7 +58,7 @@ export default function Item({ item, backgroundColor, colorBarra, colorBarra3, c
                             </div>
 
                             :
-                            <div className='d-flex justify-content-between px-2' >
+                            <div className='ps-2' >
                                 <div style={{ fontSize: '30px' }} className='text-truncate' >{itemRef.current.name}</div>
                             </div>
                     }

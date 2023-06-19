@@ -8,6 +8,7 @@ import Characters from './pages/Characters';
 import NavBar from './components/NavBar';
 import ItemPageCharacters from './pages/ItemPageCharacters';
 import ItemPageComics from './pages/ItemPageComics';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path='characters/:id' element={<ItemPageCharacters />}></Route>
         <Route path='comics/:id' element={<ItemPageComics />}></Route>
       </Routes>
+      <Footer/>
     </BrowserRouter>
   );
 }

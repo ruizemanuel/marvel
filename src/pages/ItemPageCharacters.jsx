@@ -53,7 +53,7 @@ export default function ItemPageCharacters() {
     <div className='px-3 py-4'>
 
 
-      <div style={{ border: '1px solid #1e1e1e'}}>
+      <div className='d-flex justify-content-center' style={{ border: '1px solid #1e1e1e'}}>
         <img className='img-modal' src={`${item.thumbnail.path + '.' + item.thumbnail.extension}`} alt="item" />
       </div>
       <div className='body-container-page'>

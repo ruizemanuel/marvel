@@ -47,7 +47,7 @@ export default function Comics() {
         <Row>
           {
             searchedComics.map((comic) => {
-              return <Col key={comic.id} className='d-flex justify-content-center'>
+              return <Col xs={12} sm={6} lg={4} xl={3} key={comic.id} className='d-flex justify-content-center'>
                 <Item item={comic} 
                 backgroundColor={'#ed1d24'} 
                 colorBarra={'#1e1e1e'} 

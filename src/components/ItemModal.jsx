@@ -78,7 +78,11 @@ export default function ItemModal({ show, setShow, item }) {
           :
           <div>
             <div className='title-modal text-truncate' >{item.name}</div>
+            <div className='description-page'>{item.description ? item.description : 'Description not available'}</div>
           </div>
+
+
+
         }
 
 

@@ -277,6 +277,75 @@
         overflow: hidden;
     }
 
+    /* Estilos de searchBar */
+
+    .search {
+        position: relative;
+      }
+      
+      .searchInput {
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+      }
+      
+      .search input {
+        background-color: #F6F6F6;
+        border: none;
+        border-radius: 20px;
+        font-size: 16px;
+        padding: 12px 20px;
+        height: 36px;
+        width: 100%;
+      }
+      
+      .search input:focus {
+        outline: none; 
+      }
+      
+      .dataResult {
+        position: absolute;
+        z-index: 1;
+        top: 40px;
+        width: 220px;
+        max-height: 220px;
+        background-color: white;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        overflow-y: auto;
+        border-radius: 10px;
+        border: 1px solid #CCC;
+      }
+      
+      .dataItem {
+        width: 200px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        color: black;
+        padding-left: 20px;
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      .dataItem > span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      
+      .dataItem:hover {
+        background-color: #F6F6F6;
+      }
+      
+      .clearBtn {
+        position: absolute;
+        color: black;
+        top: 11px;
+        right: 20px;
+        cursor: pointer;
+      }
+      
+
 
 
 

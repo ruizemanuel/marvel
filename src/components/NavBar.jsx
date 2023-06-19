@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NavLink } from 'react-router-dom'
+import SearchBar from './SearchBar'
+import { useMarvel } from '../MarvelContext'
 
 export default function NavBar() {
   const [showInput, setShowInput] = useState(false)
@@ -49,7 +51,7 @@ export default function NavBar() {
 
                     <div className='d-flex align-items-center'>
                         {
-                            showInput ? <input className='me-2' type="text" /> : null
+                            showInput ? <SearchBar/> : null
                         }
 
                         <FontAwesomeIcon className='search-icon' icon={faMagnifyingGlass} onClick={handleClickSearch}></FontAwesomeIcon>

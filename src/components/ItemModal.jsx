@@ -1,12 +1,21 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Modal from 'react-bootstrap/Modal';
 
-export default function ComicModal({ show, setShow, comic, title }) {
-  const [charactersToShow, setCharactersToShow] = useState(comic.characters.items.slice(0, 4))
-  console.log('PERSONAJE', comic.characters.items.slice(0, 4))
+export default function ItemModal({ show, setShow, item }) {
+
+  const apiRef = useRef(null)
+
+  if (item.title) {
+    apiRef.current = 'characters'
+  } else {
+    apiRef.current = 'comics'
+  }
+
+  const [itemsToShow, setItemsToShow] = useState(item[apiRef.current].items.slice(0, 4))
+  console.log('PERSONAJE', item[apiRef.current].items.slice(0, 4))
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4
-  const ultimaPagina = Math.ceil(comic.characters.items.length / itemsPerPage)
+  const ultimaPagina = Math.ceil(item[apiRef.current].items.length / itemsPerPage)
   const handleClose = () => setShow(false)
 
   // useEffect(() => {
@@ -18,7 +27,7 @@ export default function ComicModal({ show, setShow, comic, title }) {
       const pagina = currentPage + 1
       const ultimoItem = pagina * itemsPerPage
       const primerItem = ultimoItem - itemsPerPage
-      setCharactersToShow(comic.characters.items.slice(primerItem, ultimoItem))
+      setItemsToShow(item[apiRef.current].items.slice(primerItem, ultimoItem))
       setCurrentPage(pagina)
     }
 
@@ -31,7 +40,7 @@ export default function ComicModal({ show, setShow, comic, title }) {
       const pagina = currentPage - 1
       const ultimoItem = pagina * itemsPerPage
       const primerItem = ultimoItem - itemsPerPage
-      setCharactersToShow(comic.characters.items.slice(primerItem, ultimoItem))
+      setItemsToShow(item[apiRef.current].items.slice(primerItem, ultimoItem))
       setCurrentPage(pagina)
     }
 
@@ -42,26 +51,34 @@ export default function ComicModal({ show, setShow, comic, title }) {
 
 
       <div style={{ border: '1px solid #1e1e1e', position: 'relative' }}>
-        <img className='img-modal' src={`${comic.thumbnail.path + '.' + comic.thumbnail.extension}`} alt="item" />
+        <img className='img-modal' src={`${item.thumbnail.path + '.' + item.thumbnail.extension}`} alt="item" />
         <img className='close-icon-modal' src={require('../images/close-icon.png')} alt="close-icon" onClick={handleClose} />
       </div>
       <div className='body-container-modal'>
-        <div className='d-flex justify-content-between' >
-          <div className='title-modal text-truncate' >{title}</div>
-          <div className='title-modal'>{`N#${comic.issueNumber}`}</div>
-        </div>
-        <div className='description-modal'>{comic.description ? comic.description : 'Description not available'}</div>
-        <div className='lista-personajes-modal'>
+        {item.title ?
+          <div className='d-flex justify-content-between' >
+            <div className='title-modal text-truncate' >{item.title}</div>
+            <div className='title-modal'>{`N#${item.issueNumber}`}</div>
+          </div>
+          :
+          <div className='d-flex justify-content-between' >
+            <div className='title-modal text-truncate' >{item.name}</div>
+          </div>
+        }
+
+        <div className='description-modal'>{item.description ? item.description : 'Description not available'}</div>
+        <div className='lista-items-modal'>
 
           {
-            comic.characters.available !== 0 ?
+
+            item[apiRef.current].available !== 0 ?
 
               <div>
-                <div className='mt-2'>Characters:</div>
+                <div className='mt-2'>{`${apiRef.current}:`}</div>
                 <ul>
-                  {charactersToShow.map((character, index) => {
+                  {itemsToShow.map((item, index) => {
                     return <li key={index}>
-                      {character.name}
+                      {item.name}
                     </li>
                   })}
                 </ul>
@@ -72,7 +89,9 @@ export default function ComicModal({ show, setShow, comic, title }) {
 
               </div>
               :
-              <div>Characters not available</div>
+              <div>{`${apiRef.current} not available`}</div>
+
+
           }
 
 

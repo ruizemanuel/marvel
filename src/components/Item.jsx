@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import ComicModal from './ComicModal';
+import ItemModal from './ItemModal';
 
 export default function Item({ item, backgroundColor, colorBarra, colorBarra3, colorBarra4, colorBarra5, colorBarra6 }) {
 
@@ -71,7 +71,7 @@ export default function Item({ item, backgroundColor, colorBarra, colorBarra3, c
 
                 </div>
             </div>
-            {/* <ComicModal show={show} setShow={setShow} comic={item} title={itemRef.current.title} /> */}
+            <ItemModal show={show} setShow={setShow} item={item} />
         </>
     )
 }

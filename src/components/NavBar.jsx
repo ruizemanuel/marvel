@@ -3,7 +3,6 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NavLink } from 'react-router-dom'
 import SearchBar from './SearchBar'
-import { useMarvel } from '../MarvelContext'
 
 export default function NavBar() {
     const [showInput, setShowInput] = useState(false)
@@ -16,7 +15,6 @@ export default function NavBar() {
 
     const handleClickDots = (e) => {
         e.preventDefault()
-        console.log('DOTS EN METODO', showNav)
         setShowNav(!showNav)
 
     }

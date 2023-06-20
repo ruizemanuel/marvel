@@ -1,6 +1,5 @@
-import React, { useRef, useState } from 'react'
-import Modal from 'react-bootstrap/Modal';
-import { Link, useParams } from 'react-router-dom';
+import React, { useState } from 'react'
+import { useParams } from 'react-router-dom';
 import { useMarvel } from '../MarvelContext';
 
 export default function ItemPageComics() {
@@ -11,15 +10,10 @@ export default function ItemPageComics() {
   const item = comics.find((comic) => Number(comic.id) === Number(id))
 
   const [itemsToShow, setItemsToShow] = useState(item.characters.items.slice(0, 4))
-  console.log('PERSONAJE', item.characters.items.slice(0, 4))
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4
   const ultimaPagina = Math.ceil(item.characters.items.length / itemsPerPage)
   
-
-  // useEffect(() => {
-  //     setCharactersToShow([...])
-  // }, [])
 
   const handleSiguiente = () => {
     if (currentPage !== ultimaPagina) {

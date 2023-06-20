@@ -2,12 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Col, Container, Navbar, Row, Spinner } from 'react-bootstrap'
 import Item from '../components/Item'
 import PageNumbers from '../components/PageNumbers'
-import { useMarvel } from '../MarvelContext'
 
 export default function Characters() {
 
   const [characters, setCharacters] = useState([])
-  //const {characters} = useMarvel()
   const [searchedCharacters, setSearchedCharacters] = useState([])
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false)
@@ -21,12 +19,9 @@ export default function Characters() {
   const URL_CHARACTERS = process.env.REACT_APP_API_CHARACTERS_MARVEL
 
   const getCharacters = async () => {
-    //console.log('URL', URL_COMICS)
     try {
       setIsLoading(true)
       const res = await fetch(URL_CHARACTERS).then(result => result.json())
-      //const onlyCharacters = res.data.results.filter((comic) => Number(comic.issueNumber) > 0)
-      console.log('DESDE CHARACTER', res.data.results)
       setCharacters(res.data.results)
       setSearchedCharacters(res.data.results.slice(0, 6))
     } catch (e) {

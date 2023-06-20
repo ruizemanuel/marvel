@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import Modal from 'react-bootstrap/Modal';
 import { Link } from 'react-router-dom';
 
@@ -17,9 +17,6 @@ export default function ItemModal({ show, setShow, item }) {
   }
 
   const handleClose = () => setShow(false)
-
-  console.log('EL ITEM', item)
-
 
   return (
     <Modal show={show} onHide={handleClose} animation={false} className='px-3 py-4'>

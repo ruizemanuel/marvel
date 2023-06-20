@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Container, Navbar, Row, Spinner } from 'react-bootstrap'
 import Item from '../components/Item'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import PageNumbers from '../components/PageNumbers'
 
 export default function Comics() {
@@ -21,14 +19,10 @@ export default function Comics() {
   const URL_COMICS = process.env.REACT_APP_API_COMICS_MARVEL
 
   const getComics = async () => {
-    //console.log('URL', URL_COMICS)
     try {
       setIsLoading(true)
       const res = await fetch(URL_COMICS).then(result => result.json())
-
-      console.log('RESULTADO SIN FILTRO', res.data.results)
       const onlyComics = res.data.results.filter((comic) => Number(comic.issueNumber) > 0)
-      console.log('RESULTADO', onlyComics)
       setComics(onlyComics)
       setSearchedComics(onlyComics.slice(0, 6))
     } catch (e) {

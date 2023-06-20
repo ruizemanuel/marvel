@@ -26,8 +26,6 @@ function SearchBar() {
 
         const newFilter = [...newCharacters, ...newComics];
 
-        console.log('FILTRO', newFilter)
-
         if (searchWord === "") {
             setFilteredData([]);
             setShow(false)

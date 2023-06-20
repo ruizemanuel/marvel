@@ -276,6 +276,7 @@ body {
     height: 40px;
     width: 40px;
     color: white;
+    cursor: pointer;
 }
 
 
@@ -551,5 +552,15 @@ td:first-child {
         right: 20px;
         cursor: pointer;
     }
+}
+
+.spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 200px;
+    margin-bottom: 200px;
+    color: #ed1d24;
+    font-size: 24px;
 }
 

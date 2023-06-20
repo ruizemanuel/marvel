@@ -7,7 +7,7 @@ export default function Error404() {
         num = 3;
     }
     return (
-        <div className='d-flex flex-column flex-lg-row align-items-center justify-content-around mt-4'>
+        <div style={{marginTop: '100px'}} className='d-flex flex-column flex-lg-row align-items-center justify-content-around'>
             <div>
                 <div style={{ fontSize: '48px' }}>404 page not found</div>
                 <div style={{ fontSize: '34px' }}>hydra has stolen this page from the S.H.I.E.L.D. database!</div>

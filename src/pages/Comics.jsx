@@ -55,7 +55,10 @@ export default function Comics() {
             <Row>
               {
                 searchedComics.map((comic) => {
-                  return <Col xs={12} sm={6} lg={4} xl={3} key={comic.id} style={{ cursor: 'pointer' }} className='d-flex justify-content-center'>
+                  return <Col xs={12} sm={6} lg={4} xl={3} 
+                  key={comic.id} 
+                  style={{ cursor: 'pointer' }} 
+                  className='d-flex justify-content-center scale-in-animation'>
                     <Item item={comic}
                       backgroundColor={'#ed1d24'}
                       colorBarra={'#1e1e1e'}

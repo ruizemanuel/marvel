@@ -51,7 +51,10 @@ export default function Characters() {
             <Row>
               {
                 searchedCharacters.map((character) => {
-                  return <Col xs={12} sm={6} lg={4} xl={3} key={character.id} style={{ cursor: 'pointer' }} className='d-flex justify-content-center'>
+                  return <Col xs={12} sm={6} lg={4} xl={3} 
+                  key={character.id} 
+                  style={{ cursor: 'pointer' }} 
+                  className='d-flex justify-content-center fade-in-animation'>
                     <Item item={character}
                       backgroundColor={'#1e1e1e'}
                       colorBarra={'#ed1d24'}

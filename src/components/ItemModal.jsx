@@ -24,7 +24,7 @@ export default function ItemModal({ show, setShow, item }) {
   return (
     <Modal show={show} onHide={handleClose} animation={false} className='px-3 py-4'>
 
-      <div style={{ border: '1px solid #1e1e1e', position: 'relative' }}>
+      <div className='d-flex justify-content-center' style={{ border: '1px solid #1e1e1e', position: 'relative' }}>
         <img className='img-modal' src={`${item.thumbnail.path + '.' + item.thumbnail.extension}`} alt="item" />
         <img className='close-icon-modal' src={require('../images/close-icon.png')} alt="close-icon" onClick={handleClose} />
       </div>

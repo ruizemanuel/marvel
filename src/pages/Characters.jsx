@@ -22,7 +22,6 @@ export default function Characters() {
   const getCharacters = async () => {
     try {
       setIsLoading(true)
-      console.log('URL', `https://gateway.marvel.com/v1/public/characters?limit=60&ts=1&apikey=${APIKEY}&hash=${HASH}`)
       const res = await fetch(`https://gateway.marvel.com/v1/public/characters?limit=60&ts=1&apikey=${APIKEY}&hash=${HASH}`).then(result => result.json())
       setCharacters(res.data.results)
       setSearchedCharacters(res.data.results.slice(0, 6))

@@ -16,12 +16,13 @@ export default function Comics() {
     paginas.push(i)
   }
 
-  const URL_COMICS = process.env.REACT_APP_API_COMICS_MARVEL
+  const APIKEY = process.env.REACT_APP_API_APIKEY
+    const HASH = process.env.REACT_APP_API_HASH
 
   const getComics = async () => {
     try {
       setIsLoading(true)
-      const res = await fetch(URL_COMICS).then(result => result.json())
+      const res = await fetch(`https://gateway.marvel.com/v1/public/comics?limit=60&ts=1&apikey=${APIKEY}&hash=${HASH}`).then(result => result.json())
       const onlyComics = res.data.results.filter((comic) => Number(comic.issueNumber) > 0)
       setComics(onlyComics)
       setSearchedComics(onlyComics.slice(0, 6))

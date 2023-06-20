@@ -6,13 +6,12 @@ export const MarvelProvider = ({children}) => {
     const [comics, setComics] = useState([])
     const [characters, setCharacters] = useState([])
 
-    const URL_COMICS = process.env.REACT_APP_API_COMICS_MARVEL
-    const URL_CHARACTERS = process.env.REACT_APP_API_CHARACTERS_MARVEL
+    const APIKEY = process.env.REACT_APP_API_APIKEY
+    const HASH = process.env.REACT_APP_API_HASH
 
   const getComics = async () => {
     try {
-      console.log('URL EN CONTEXTO', URL_CHARACTERS)
-      const res = await fetch(URL_COMICS).then(result => result.json())
+      const res = await fetchfetch(`https://gateway.marvel.com/v1/public/comics?limit=60&ts=1&apikey=${APIKEY}&hash=${HASH}`).then(result => result.json())
       const onlyComics = res.data.results.filter((comic) => Number(comic.issueNumber) > 0)
       setComics(onlyComics)
     } catch (e) {
@@ -23,7 +22,7 @@ export const MarvelProvider = ({children}) => {
 
   const getCharacters = async () => {
     try {
-      const res = await fetch(URL_CHARACTERS).then(result => result.json())
+      const res = await fetch(`https://gateway.marvel.com/v1/public/characters?limit=60&ts=1&apikey=${APIKEY}&hash=${HASH}`).then(result => result.json())
       setCharacters(res.data.results)
     } catch (e) {
       console.log('error', e)

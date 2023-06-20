@@ -198,8 +198,7 @@ body {
         align-items: center;
         justify-content: space-between;
         height: 30px;
-        width: 500px;
-        line-height: 0.8;
+        width: 550px;
         color: white;
         font-size: 25px;
     }
@@ -216,6 +215,11 @@ body {
         text-align: center;
         text-decoration: none;
         color: white;
+    }
+
+    .inactive-style-navegacion:hover {
+        transition: transform 0.3s;
+        transform: scale(1.1);
     }
 
     .busqueda-container {
@@ -269,8 +273,13 @@ body {
 
 .logo {
     height: 70px;
-    width: 150px;
+    width: 180px;
+    transition: transform 0.3s ease;
 }
+
+.logo:hover {
+    transform: scale(1.1);
+  }
 
 .search-icon {
     height: 40px;
@@ -564,33 +573,47 @@ body {
     font-size: 24px;
 }
 
+/* Estilos de error 404 */
+
+.btn-error {
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 25px;
+    color: white;
+    background-color: #ed1d24;
+    cursor: pointer;
+    text-align: center;
+}
+
 /* Animacion */
 
 @keyframes fade-in {
     from {
-      opacity: 0;
+        opacity: 0;
     }
+
     to {
-      opacity: 1;
+        opacity: 1;
     }
-  }
-  
-  .fade-in-animation {
+}
+
+.fade-in-animation {
     animation: fade-in 0.5s ease-in;
-  }
+}
 
-  @keyframes scale-in {
+@keyframes scale-in {
     from {
-      transform: scale(0);
-      opacity: 0;
+        transform: scale(0);
+        opacity: 0;
     }
-    to {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-  
-  .scale-in-animation {
-    animation: scale-in 0.5s ease-in;
-  }
 
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.scale-in-animation {
+    animation: scale-in 0.5s ease-in;
+}

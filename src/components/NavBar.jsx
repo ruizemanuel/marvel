@@ -8,6 +8,7 @@ import { useMarvel } from '../MarvelContext'
 export default function NavBar() {
     const [showInput, setShowInput] = useState(false)
     const [showNav, setShowNav] = useState(false)
+    const [isHovered, setIsHovered] = useState(false);
 
     const handleClickSearch = () => {
         setShowInput(!showInput)
@@ -20,6 +21,14 @@ export default function NavBar() {
 
     }
 
+    const handleHover = () => {
+        setIsHovered(true);
+    };
+
+    const handleLeave = () => {
+        setIsHovered(false);
+    };
+
     return (
         <header>
             <div className='d-flex flex-column'>
@@ -30,8 +39,14 @@ export default function NavBar() {
                             <div className='dot'></div>
                             <div className='dot'></div>
                         </div>
+
                         <NavLink to='/'>
-                            <img className='logo' src={require('../images/marvel.png')} alt='logo'></img>
+                            <img src={isHovered ? require('../images/marvel2.png') : require('../images/marvel.png')}
+                            className='logo'
+                            alt='logo'
+                            onMouseEnter={handleHover}
+                            onMouseLeave={handleLeave} ></img>
+                            
                         </NavLink>
 
                     </div>
@@ -45,9 +60,9 @@ export default function NavBar() {
                     </div>
 
                     <div className='navegacion-lg'>
-                        <NavLink className={({ isActive }) => ( isActive ? 'active-style-navegacion' : 'inactive-style-navegacion')} to='/'>HOME</NavLink>
-                        <NavLink className={({ isActive }) => ( isActive ? 'active-style-navegacion' : 'inactive-style-navegacion')} to='/characters'>CHARACTERS</NavLink>
-                        <NavLink className={({ isActive }) => ( isActive ? 'active-style-navegacion' : 'inactive-style-navegacion')} to='/comics'>COMICS</NavLink>
+                        <NavLink className={({ isActive }) => (isActive ? 'active-style-navegacion' : 'inactive-style-navegacion')} to='/'>HOME</NavLink>
+                        <NavLink className={({ isActive }) => (isActive ? 'active-style-navegacion' : 'inactive-style-navegacion')} to='/characters'>CHARACTERS</NavLink>
+                        <NavLink className={({ isActive }) => (isActive ? 'active-style-navegacion' : 'inactive-style-navegacion')} to='/comics'>COMICS</NavLink>
                         <div className='d-flex align-items-center'>
                             {
                                 showInput ? <SearchBar /> : null
@@ -66,9 +81,9 @@ export default function NavBar() {
                             <div style={{ backgroundColor: '#ba1e23' }} className='barra-item-navbar'></div>
                             <div style={{ backgroundColor: '#861e22' }} className='barra-item-navbar'></div>
                         </div>
-                        <NavLink className={({ isActive }) => ( isActive ? 'active-style-navegacion' : 'inactive-style-navegacion')} to='/'>HOME</NavLink>
-                        <NavLink className={({ isActive }) => ( isActive ? 'active-style-navegacion' : 'inactive-style-navegacion')} to='/characters'>CHARACTERS</NavLink>
-                        <NavLink className={({ isActive }) => ( isActive ? 'active-style-navegacion' : 'inactive-style-navegacion')} to='/comics'>COMICS</NavLink>
+                        <NavLink className={({ isActive }) => (isActive ? 'active-style-navegacion' : 'inactive-style-navegacion')} to='/'>HOME</NavLink>
+                        <NavLink className={({ isActive }) => (isActive ? 'active-style-navegacion' : 'inactive-style-navegacion')} to='/characters'>CHARACTERS</NavLink>
+                        <NavLink className={({ isActive }) => (isActive ? 'active-style-navegacion' : 'inactive-style-navegacion')} to='/comics'>COMICS</NavLink>
                     </div>
                     :
                     null

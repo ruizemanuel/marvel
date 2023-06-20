@@ -4,7 +4,7 @@ import { useMarvel } from '../MarvelContext';
 
 export default function ItemPageCharacters() {
 
-  const {characters} = useMarvel()
+  const characters = JSON.parse(localStorage.getItem('characters'));   
   const {id} = useParams()
 
   const item = characters.find((character) => Number(character.id) === Number(id))

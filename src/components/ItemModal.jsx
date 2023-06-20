@@ -13,7 +13,10 @@ export default function ItemModal({ show, setShow, item }) {
     const opciones = { month: 'long', day: 'numeric', year: 'numeric' };
     const fechaFormateada = fecha.toLocaleDateString('en-US', opciones);
 
-    itemRef.current = { fecha: fechaFormateada }
+    const writers = item.creators.items.filter((element) => element.role === "writer")
+    const pencillers = item.creators.items.filter((element) => element.role === "penciller")
+
+    itemRef.current = { fecha: fechaFormateada, writers: writers, pencillers: pencillers }
   }
 
   const handleClose = () => setShow(false)
@@ -30,6 +33,7 @@ export default function ItemModal({ show, setShow, item }) {
           <div>
             <div className='title-modal text-truncate' >{item.title}</div>
             <table className='comic-table'>
+              <tbody>
               <tr className='description-modal' >
                 <td >published:</td>
                 <td >{itemRef.current.fecha}</td>
@@ -37,28 +41,25 @@ export default function ItemModal({ show, setShow, item }) {
               <tr className='description-modal'>
                 <td >writer:</td>
                 <td className='description-modal-writer' >
-                  {item.creators.items.map((item) => {
-                    if (item.role.includes('writer')) {
-                      return <div className='description-modal-writer-item'>{item.name}</div>
-                    } else {
-                      return <div className='description-modal-writer-item'>writer not available</div>
-                    }
-
-                  })}
-
+                  {itemRef.current.writers.length !== 0 ?
+                    itemRef.current.writers.map((element, index) => {
+                      return <div key={index} className='description-modal-writer-item'>{element.name}</div>
+                    })
+                    :
+                    <div className='description-modal-writer-item'>writer not available</div>
+                  }
                 </td>
               </tr>
               <tr className='description-modal'>
                 <td >penciller:</td>
                 <td className='description-modal-writer' >
-                  {item.creators.items.map((item) => {
-                    if (item.role.includes('penciller')) {
-                      return <div className='description-modal-writer-item'>{item.name}</div>
-                    } else {
-                      return <div className='description-modal-writer-item'>penciller not available</div>
-                    }
-
-                  })}
+                {itemRef.current.pencillers.length !== 0 ?
+                    itemRef.current.pencillers.map((element, index) => {
+                      return <div key={index} className='description-modal-writer-item'>{element.name}</div>
+                    })
+                    :
+                    <div className='description-modal-writer-item'>penciller not available</div>
+                  }
 
                 </td>
               </tr>
@@ -67,6 +68,7 @@ export default function ItemModal({ show, setShow, item }) {
                 {item.pageCount !== 0 ? <td >{item.pageCount}</td> : <td >not available</td>}
 
               </tr>
+              </tbody>
             </table>
 
 

@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { useMarvel } from '../MarvelContext';
 
 export default function ItemPageComics() {
 
-  const {comics} = useMarvel()
+  const comics = JSON.parse(localStorage.getItem('comics'));   
   const {id} = useParams()
 
   const item = comics.find((comic) => Number(comic.id) === Number(id))

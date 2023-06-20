@@ -32,7 +32,7 @@ export default function ItemModal({ show, setShow, item }) {
         {item.title ?
           <div>
             <div className='title-modal text-truncate' >{item.title}</div>
-            <table>
+            <table className='comic-table'>
               <tr className='description-modal' >
                 <td >published:</td>
                 <td >{itemRef.current.fecha}</td>
@@ -44,7 +44,7 @@ export default function ItemModal({ show, setShow, item }) {
                     if (item.role.includes('writer')) {
                       return <div className='description-modal-writer-item'>{item.name}</div>
                     } else {
-                      return null
+                      return <div className='description-modal-writer-item'>writer not available</div>
                     }
 
                   })}
@@ -58,7 +58,7 @@ export default function ItemModal({ show, setShow, item }) {
                     if (item.role.includes('penciller')) {
                       return <div className='description-modal-writer-item'>{item.name}</div>
                     } else {
-                      return null
+                      return <div className='description-modal-writer-item'>penciller not available</div>
                     }
 
                   })}

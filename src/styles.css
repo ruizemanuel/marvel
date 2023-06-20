@@ -408,16 +408,16 @@ body {
     content: '';
 }
 
-table {
+.comic-table table {
     border-collapse: collapse;
 }
 
-td {
+.comic-table td {
     padding: 5px;
     text-align: left;
 }
 
-td:first-child {
+.comic-table td:first-child {
     width: 90px;
     white-space: nowrap;
 }

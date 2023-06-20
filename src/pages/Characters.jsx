@@ -21,6 +21,7 @@ export default function Characters() {
   const getCharacters = async () => {
     try {
       setIsLoading(true)
+      console.log('URL', URL_CHARACTERS)
       const res = await fetch(URL_CHARACTERS).then(result => result.json())
       setCharacters(res.data.results)
       setSearchedCharacters(res.data.results.slice(0, 6))

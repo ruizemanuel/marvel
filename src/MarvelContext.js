@@ -11,6 +11,7 @@ export const MarvelProvider = ({children}) => {
 
   const getComics = async () => {
     try {
+      console.log('URL EN CONTEXTO', URL_CHARACTERS)
       const res = await fetch(URL_COMICS).then(result => result.json())
       const onlyComics = res.data.results.filter((comic) => Number(comic.issueNumber) > 0)
       setComics(onlyComics)

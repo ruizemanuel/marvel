@@ -1,10 +1,8 @@
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react'
+import React from 'react'
 
-export default function PageNumbers({ num, paginas, setSearchedItems, items, itemsPerPage, currentPage, setCurrentPage }) {
-
-    
+export default function PageNumbers({ num, paginas, numeroPages, setNumeroPages, setSearchedItems, items, itemsPerPage, currentPage, setCurrentPage }) {
 
     const handleClickPage = (e) => {
         const ultimoItem = Number(e.target.id) * itemsPerPage
@@ -22,10 +20,44 @@ export default function PageNumbers({ num, paginas, setSearchedItems, items, ite
             setCurrentPage(numPagina)
         }
 
+        if (currentPage >= numeroPages.length) {
+            const ultimoItem = currentPage + 1
+            const primerItem = ultimoItem - 7
+            setNumeroPages(paginas.slice(primerItem, ultimoItem))
+        }
+
     }
 
+    const handleClickArrowLeft = (e, currentPage) => {
+        if (currentPage <= paginas.length) {
+            const numPagina = currentPage - 1
+            const ultimoItem = numPagina * itemsPerPage
+            const primerItem = ultimoItem - itemsPerPage
+            setSearchedItems(items.slice(primerItem, ultimoItem))
+            setCurrentPage(numPagina)
+        }
+
+        if (currentPage <= numeroPages[0]) {
+            const ultimoItem = numeroPages[numeroPages.length - 1] - 1
+            const primerItem = ultimoItem - 7
+            setNumeroPages(paginas.slice(primerItem, ultimoItem))
+        }
+
+    }
+
+
     return (
+
         <div className='d-flex align-items-center'>
+
+            {num === numeroPages[0] && numeroPages[0] !== 1 ?
+
+                <FontAwesomeIcon style={{ fontSize: '22px', color: 'black', cursor: 'pointer', marginRight: '5px' }}
+                    icon={faArrowLeft}
+                    onClick={(e) => handleClickArrowLeft(e, currentPage)}></FontAwesomeIcon>
+                :
+                null
+            }
 
             <div style={currentPage === num ?
                 { fontSize: '22px', cursor: 'pointer', backgroundColor: '#ed1d24', color: 'white' }
@@ -35,7 +67,7 @@ export default function PageNumbers({ num, paginas, setSearchedItems, items, ite
                 id={num}
                 onClick={(e) => handleClickPage(e)}>{num}</div>
 
-            {paginas.length === num ?
+            {num === numeroPages[numeroPages.length - 1] ?
 
                 <FontAwesomeIcon style={currentPage !== paginas.length ?
                     { fontSize: '22px', color: 'black', cursor: 'pointer', marginLeft: '2px' }
@@ -54,9 +86,6 @@ export default function PageNumbers({ num, paginas, setSearchedItems, items, ite
                     backgroundColor: 'black',
                 }}></div>
             }
-
-
-
         </div>
     )
 }

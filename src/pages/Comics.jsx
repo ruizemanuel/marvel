@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Col, Container, Navbar, Row, Spinner } from 'react-bootstrap'
+import { Col, Container, Row, Spinner } from 'react-bootstrap'
 import Item from '../components/Item'
 import PageNumbers from '../components/PageNumbers'
 
@@ -9,15 +9,22 @@ export default function Comics() {
   const [searchedComics, setSearchedComics] = useState([])
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false)
+  const [paginas, setPaginas] = useState([]);
+  const [numeroPages, setNumeroPages] = useState([]);
 
   const itemsPerPage = 6
-  const paginas = []
-  for (let i = 1; i <= Math.ceil(comics.length / itemsPerPage); i++) {
-    paginas.push(i)
-  }
+
+  useEffect(() => {
+    const newPaginas = [];
+    for (let i = 1; i <= Math.ceil(comics.length / itemsPerPage); i++) {
+      newPaginas.push(i);
+    }
+    setPaginas(newPaginas);
+    setNumeroPages(newPaginas.slice(0,7))
+  }, [comics]);
 
   const APIKEY = process.env.REACT_APP_API_APIKEY
-    const HASH = process.env.REACT_APP_API_HASH
+  const HASH = process.env.REACT_APP_API_HASH
 
   const getComics = async () => {
     try {
@@ -50,10 +57,10 @@ export default function Comics() {
             <Row>
               {
                 searchedComics.map((comic) => {
-                  return <Col xs={12} sm={6} lg={4} xl={3} 
-                  key={comic.id} 
-                  style={{ cursor: 'pointer' }} 
-                  className='d-flex justify-content-center scale-in-animation'>
+                  return <Col xs={12} sm={6} lg={4} xl={3}
+                    key={comic.id}
+                    style={{ cursor: 'pointer' }}
+                    className='d-flex justify-content-center scale-in-animation'>
                     <Item item={comic}
                       backgroundColor={'#ed1d24'}
                       colorBarra={'#1e1e1e'}
@@ -68,10 +75,12 @@ export default function Comics() {
             </Row>
           </Container>
           <div className='d-flex justify-content-center mb-4'>
-            {paginas.map((num, index) => {
+            {numeroPages.map((num, index) => {
               return <PageNumbers key={index}
                 num={num}
                 paginas={paginas}
+                numeroPages={numeroPages}
+                setNumeroPages={setNumeroPages}
                 setSearchedItems={setSearchedComics}
                 items={comics}
                 itemsPerPage={itemsPerPage}

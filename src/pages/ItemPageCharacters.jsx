@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { useMarvel } from '../MarvelContext';
 
 export default function ItemPageCharacters() {
 
-  const characters = JSON.parse(localStorage.getItem('characters'));   
-  const {id} = useParams()
+  const characters = JSON.parse(localStorage.getItem('characters'));
+  const { id } = useParams()
 
   const item = characters.find((character) => Number(character.id) === Number(id))
 
@@ -22,9 +21,6 @@ export default function ItemPageCharacters() {
       setItemsToShow(item.comics.items.slice(primerItem, ultimoItem))
       setCurrentPage(pagina)
     }
-
-
-
   }
 
   const handleAnterior = () => {
@@ -40,18 +36,14 @@ export default function ItemPageCharacters() {
 
   return (
     <div className='px-3 py-4'>
-
-
-      <div className='d-flex justify-content-center' style={{ border: '1px solid #1e1e1e'}}>
+      <div className='d-flex justify-content-center' style={{ border: '1px solid #1e1e1e' }}>
         <img className='img-modal' src={`${item.thumbnail.path + '.' + item.thumbnail.extension}`} alt="item" />
       </div>
       <div className='body-container-page'>
-        
-          <div>
-            <div className='title-page' >{item.name}</div>
-          </div>
-        
 
+        <div>
+          <div className='title-page' >{item.name}</div>
+        </div>
         <div className='description-page'>{item.description ? item.description : 'Description not available'}</div>
         <div className='lista-items-modal'>
 
@@ -84,9 +76,6 @@ export default function ItemPageCharacters() {
         </div>
 
       </div>
-
-
-
 
     </div>
   )

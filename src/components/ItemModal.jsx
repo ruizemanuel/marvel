@@ -71,8 +71,6 @@ export default function ItemModal({ show, setShow, item }) {
               </tbody>
             </table>
 
-
-
           </div>
           :
           <div>
@@ -81,11 +79,7 @@ export default function ItemModal({ show, setShow, item }) {
           </div>
 
 
-
         }
-
-
-
 
         {
           item.title ?
@@ -105,16 +99,7 @@ export default function ItemModal({ show, setShow, item }) {
             </Link>
         }
 
-
-
-
-
-
       </div>
-
-
-
-
     </Modal>
   )
 }

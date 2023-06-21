@@ -21,8 +21,6 @@ export default function Item({ item, backgroundColor, colorBarra, colorBarra3, c
     const [show, setShow] = useState(false);
     const handleShowItem = () => setShow(true)
 
-
-
     return (
         <>
             <div className='item-container' onClick={handleShowItem}>
@@ -62,12 +60,6 @@ export default function Item({ item, backgroundColor, colorBarra, colorBarra3, c
                                 <div style={{ fontSize: '30px' }} className='text-truncate' >{itemRef.current.name}</div>
                             </div>
                     }
-
-
-
-
-
-
 
                 </div>
             </div>

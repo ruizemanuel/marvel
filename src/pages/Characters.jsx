@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Col, Container, Navbar, Row, Spinner } from 'react-bootstrap'
+import { Col, Container, Row, Spinner } from 'react-bootstrap'
 import Item from '../components/Item'
 import PageNumbers from '../components/PageNumbers'
 
@@ -9,12 +9,20 @@ export default function Characters() {
   const [searchedCharacters, setSearchedCharacters] = useState([])
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false)
+  const [paginas, setPaginas] = useState([]);
+  const [numeroPages, setNumeroPages] = useState([]);
 
   const itemsPerPage = 6
-  const paginas = []
-  for (let i = 1; i <= Math.ceil(characters.length / itemsPerPage); i++) {
-    paginas.push(i)
-  }
+
+  useEffect(() => {
+    const newPaginas = [];
+    for (let i = 1; i <= Math.ceil(characters.length / itemsPerPage); i++) {
+      newPaginas.push(i);
+    }
+    setPaginas(newPaginas);
+    setNumeroPages(newPaginas.slice(0,7))
+  }, [characters]);
+  
 
   const APIKEY = process.env.REACT_APP_API_APIKEY
   const HASH = process.env.REACT_APP_API_HASH
@@ -47,10 +55,10 @@ export default function Characters() {
             <Row>
               {
                 searchedCharacters.map((character) => {
-                  return <Col xs={12} sm={6} lg={4} xl={3} 
-                  key={character.id} 
-                  style={{ cursor: 'pointer' }} 
-                  className='d-flex justify-content-center fade-in-animation'>
+                  return <Col xs={12} sm={6} lg={4} xl={3}
+                    key={character.id}
+                    style={{ cursor: 'pointer' }}
+                    className='d-flex justify-content-center fade-in-animation'>
                     <Item item={character}
                       backgroundColor={'#1e1e1e'}
                       colorBarra={'#ed1d24'}
@@ -64,10 +72,12 @@ export default function Characters() {
             </Row>
           </Container>
           <div className='d-flex justify-content-center mb-4'>
-            {paginas.map((num, index) => {
+            {numeroPages.map((num, index) => {
               return <PageNumbers key={index}
                 num={num}
                 paginas={paginas}
+                numeroPages={numeroPages}
+                setNumeroPages={setNumeroPages}
                 setSearchedItems={setSearchedCharacters}
                 items={characters}
                 itemsPerPage={itemsPerPage}

@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { useMarvel } from '../MarvelContext';
 
 export default function ItemPageComics() {
 
-  const comics = JSON.parse(localStorage.getItem('comics'));   
-  const {id} = useParams()
+  const comics = JSON.parse(localStorage.getItem('comics'));
+  const { id } = useParams()
 
   const item = comics.find((comic) => Number(comic.id) === Number(id))
 
@@ -13,7 +12,7 @@ export default function ItemPageComics() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4
   const ultimaPagina = Math.ceil(item.characters.items.length / itemsPerPage)
-  
+
 
   const handleSiguiente = () => {
     if (currentPage !== ultimaPagina) {
@@ -23,8 +22,6 @@ export default function ItemPageComics() {
       setItemsToShow(item.characters.items.slice(primerItem, ultimoItem))
       setCurrentPage(pagina)
     }
-
-
 
   }
 
@@ -43,15 +40,15 @@ export default function ItemPageComics() {
     <div className='px-3 py-4'>
 
 
-      <div className='d-flex justify-content-center' style={{ border: '1px solid #1e1e1e'}}>
+      <div className='d-flex justify-content-center' style={{ border: '1px solid #1e1e1e' }}>
         <img className='img-modal' src={`${item.thumbnail.path + '.' + item.thumbnail.extension}`} alt="item" />
       </div>
       <div className='body-container-page'>
-        
-          <div>
-            <div className='title-page' >{item.title}</div>
-          </div>
-        
+
+        <div>
+          <div className='title-page' >{item.title}</div>
+        </div>
+
 
         <div className='description-page'>{item.description ? item.description : 'Description not available'}</div>
         <div className='lista-items-modal'>

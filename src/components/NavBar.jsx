@@ -2,10 +2,8 @@ import React, { useState } from 'react'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NavLink, useNavigate } from 'react-router-dom'
-import SearchBar from './SearchBar'
 
 export default function NavBar() {
-    const [showInput, setShowInput] = useState(false)
     const [showNav, setShowNav] = useState(false)
     const [isHovered, setIsHovered] = useState(false);
     const navigate = useNavigate()

@@ -17,7 +17,7 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Routes>
-        <Route path='/' element={<Home />}></Route>
+        <Route path='marvel' element={<Home />}></Route>
         <Route path='comics' element={<Comics />}></Route>
         <Route path='characters' element={<Characters />}></Route>
         <Route path='search' element={<SearchPage />}></Route>

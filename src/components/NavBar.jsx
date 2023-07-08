@@ -39,7 +39,7 @@ export default function NavBar() {
                             <div className='dot'></div>
                         </div>
 
-                        <NavLink to='/'>
+                        <NavLink to='/marvel'>
                             <img src={isHovered ? require('../images/marvel2.png') : require('../images/marvel.png')}
                             className='logo'
                             alt='logo'
@@ -55,7 +55,7 @@ export default function NavBar() {
                     </div>
 
                     <div className='navegacion-lg'>
-                        <NavLink className={({ isActive }) => (isActive ? 'active-style-navegacion' : 'inactive-style-navegacion')} to='/'>HOME</NavLink>
+                        <NavLink className={({ isActive }) => (isActive ? 'active-style-navegacion' : 'inactive-style-navegacion')} to='/marvel'>HOME</NavLink>
                         <NavLink className={({ isActive }) => (isActive ? 'active-style-navegacion' : 'inactive-style-navegacion')} to='/characters'>CHARACTERS</NavLink>
                         <NavLink className={({ isActive }) => (isActive ? 'active-style-navegacion' : 'inactive-style-navegacion')} to='/comics'>COMICS</NavLink>
                         <div className='d-flex align-items-center'>
@@ -72,7 +72,7 @@ export default function NavBar() {
                             <div style={{ backgroundColor: '#ba1e23' }} className='barra-item-navbar'></div>
                             <div style={{ backgroundColor: '#861e22' }} className='barra-item-navbar'></div>
                         </div>
-                        <NavLink className={({ isActive }) => (isActive ? 'active-style-navegacion' : 'inactive-style-navegacion')} to='/'>HOME</NavLink>
+                        <NavLink className={({ isActive }) => (isActive ? 'active-style-navegacion' : 'inactive-style-navegacion')} to='/marvel'>HOME</NavLink>
                         <NavLink className={({ isActive }) => (isActive ? 'active-style-navegacion' : 'inactive-style-navegacion')} to='/characters'>CHARACTERS</NavLink>
                         <NavLink className={({ isActive }) => (isActive ? 'active-style-navegacion' : 'inactive-style-navegacion')} to='/comics'>COMICS</NavLink>
                     </div>

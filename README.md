@@ -21,7 +21,8 @@ This is a website that consumes the [Marvel API](https://developer.marvel.com/).
 
 ### Links
 
-- Website: [Website on Netlify](https://marvel-emanuel-ruiz.netlify.app/)
+- Website V2: [Website on GitHub Pages - In this version the app loads ALL the Characters and up to 1000 Comics and use a different aproach for the Search making use of a search parameter included on the API "nameStartsWith - titleStartsWith". The code for this version can be founded in the develop branch](https://ruizemanuel.github.io/marvel)
+- Website V1: [Website on Netlify](https://marvel-emanuel-ruiz.netlify.app/)
 - Repository: [Github](https://github.com/ruizemanuel/marvel)
 
 ## My process

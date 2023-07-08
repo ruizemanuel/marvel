@@ -35,7 +35,7 @@ export default function SearchPage() {
             try {
                 setIsLoading(true)
                 const res = await fetch(`https://gateway.marvel.com/v1/public/${selectedRadio}?limit=20&ts=1&apikey=${APIKEY}&hash=${HASH}&${searchParameter}=${wordRef.current.value}`).then(result => result.json())
-                //localStorage.setItem('characters', JSON.stringify(res.data.results));
+                localStorage.setItem(`${selectedRadio}`, JSON.stringify(res.data.results));
                 setItems(res.data.results)
             } catch (e) {
                 console.log('error', e)

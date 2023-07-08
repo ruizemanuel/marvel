@@ -78,7 +78,7 @@ export default function Characters() {
               }
             </Row>
           </Container>
-          {cuttedCharacters.length < 100 ?
+          {cuttedCharacters.length < characters.length ?
             <div className='d-flex justify-content-center mt-4'>
               <div className="btn-load-more" onClick={loadMore}>
                 LOAD MORE

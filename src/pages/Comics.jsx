@@ -6,22 +6,24 @@ import PageNumbers from '../components/PageNumbers'
 export default function Comics() {
 
   const [comics, setComics] = useState([])
-  const [searchedComics, setSearchedComics] = useState([])
+  const [cuttedComics, setCuttedComics] = useState([])
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false)
   const [paginas, setPaginas] = useState([]);
   const [numeroPages, setNumeroPages] = useState([]);
+  const [offset, setOffset] = useState(0);
+  const [totalComics, setTotalComics] = useState(null)
 
-  const itemsPerPage = 6
 
   useEffect(() => {
     const newPaginas = [];
-    for (let i = 1; i <= Math.ceil(comics.length / itemsPerPage); i++) {
+    for (let i = 1; i <= Math.ceil(totalComics / comics.length); i++) {
       newPaginas.push(i);
     }
+    console.log('COMICS', newPaginas)
     setPaginas(newPaginas);
-    setNumeroPages(newPaginas.slice(0,7))
-  }, [comics]);
+    setNumeroPages(newPaginas.slice(0, 7))
+  }, [totalComics]);
 
   const APIKEY = process.env.REACT_APP_API_APIKEY
   const HASH = process.env.REACT_APP_API_HASH
@@ -29,10 +31,12 @@ export default function Comics() {
   const getComics = async () => {
     try {
       setIsLoading(true)
-      const res = await fetch(`https://gateway.marvel.com/v1/public/comics?limit=60&ts=1&apikey=${APIKEY}&hash=${HASH}`).then(result => result.json())
+      const res = await fetch(`https://gateway.marvel.com/v1/public/comics?limit=100&ts=1&apikey=${APIKEY}&hash=${HASH}&offset=${offset}`).then(result => result.json())
       const onlyComics = res.data.results.filter((comic) => Number(comic.issueNumber) > 0)
+      localStorage.setItem('comics', JSON.stringify(onlyComics));
       setComics(onlyComics)
-      setSearchedComics(onlyComics.slice(0, 6))
+      setCuttedComics(onlyComics.slice(0, 10))
+      setTotalComics(1000)
     } catch (e) {
       console.log('error', e)
     }
@@ -45,7 +49,11 @@ export default function Comics() {
 
   useEffect(() => {
     getComics()
-  }, [])
+  }, [offset])
+
+  const loadMore = () => {
+    setCuttedComics(comics.slice(0, cuttedComics.length + 10))
+  }
 
   return (
     <>
@@ -56,7 +64,7 @@ export default function Comics() {
           <Container className='mt-5'>
             <Row>
               {
-                searchedComics.map((comic) => {
+                cuttedComics.map((comic) => {
                   return <Col xs={12} sm={6} lg={4} xl={3}
                     key={comic.id}
                     style={{ cursor: 'pointer' }}
@@ -74,6 +82,18 @@ export default function Comics() {
               }
             </Row>
           </Container>
+
+
+          {cuttedComics.length < comics.length ?
+            <div className='d-flex justify-content-center mt-4'>
+              <div className="btn-load-more" onClick={loadMore}>
+                LOAD MORE
+              </div>
+            </div>
+            :
+            null
+          }
+
           <div className='d-flex justify-content-center mb-4'>
             {numeroPages.map((num, index) => {
               return <PageNumbers key={index}
@@ -81,11 +101,9 @@ export default function Comics() {
                 paginas={paginas}
                 numeroPages={numeroPages}
                 setNumeroPages={setNumeroPages}
-                setSearchedItems={setSearchedComics}
-                items={comics}
-                itemsPerPage={itemsPerPage}
                 currentPage={currentPage}
-                setCurrentPage={setCurrentPage} />
+                setCurrentPage={setCurrentPage}
+                setOffset={setOffset} />
             })}
           </div>
         </>

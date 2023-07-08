@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/marvel/static/css/main.7412f421.css",
+    "main.js": "/marvel/static/js/main.28d693c1.js",
+    "static/js/787.100a7847.chunk.js": "/marvel/static/js/787.100a7847.chunk.js",
+    "static/media/marvel2.png": "/marvel/static/media/marvel2.a7dde2a38fa08b750614.png",
+    "static/media/error404-2.jpg": "/marvel/static/media/error404-2.87229d6bb386abf3657d.jpg",
+    "static/media/error404-1.jpg": "/marvel/static/media/error404-1.ca397b955770ba7990d5.jpg",
+    "static/media/characters-dummy.jpg": "/marvel/static/media/characters-dummy.54b8cb1b0a653f2b4f44.jpg",
+    "static/media/error404-3.jpg": "/marvel/static/media/error404-3.22bba98a03fc3a149037.jpg",
+    "static/media/marvel.png": "/marvel/static/media/marvel.33d7bc262bac5a502397.png",
+    "static/media/comics-dummy.jpg": "/marvel/static/media/comics-dummy.6e69b727fdd3b3c52e04.jpg",
+    "static/media/close-icon.png": "/marvel/static/media/close-icon.ebd5ee6ea5cb39cf1af4.png",
+    "index.html": "/marvel/index.html",
+    "main.7412f421.css.map": "/marvel/static/css/main.7412f421.css.map",
+    "main.28d693c1.js.map": "/marvel/static/js/main.28d693c1.js.map",
+    "787.100a7847.chunk.js.map": "/marvel/static/js/787.100a7847.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7412f421.css",
+    "static/js/main.28d693c1.js"
+  ]
+}

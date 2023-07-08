@@ -10,6 +10,7 @@ import ItemPageCharacters from './pages/ItemPageCharacters';
 import ItemPageComics from './pages/ItemPageComics';
 import Footer from './components/Footer';
 import Error404 from './pages/Error404';
+import SearchPage from './pages/SearchPage';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path='/' element={<Home />}></Route>
         <Route path='comics' element={<Comics />}></Route>
         <Route path='characters' element={<Characters />}></Route>
+        <Route path='search' element={<SearchPage />}></Route>
         <Route path='characters/:id' element={<ItemPageCharacters />}></Route>
         <Route path='comics/:id' element={<ItemPageComics />}></Route>
         <Route path='*' element={<Error404 />}></Route>

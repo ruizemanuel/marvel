@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import SearchBar from './SearchBar'
 
 export default function NavBar() {
     const [showInput, setShowInput] = useState(false)
     const [showNav, setShowNav] = useState(false)
     const [isHovered, setIsHovered] = useState(false);
+    const navigate = useNavigate()
 
     const handleClickSearch = () => {
-        setShowInput(!showInput)
+        navigate('/search')
     }
 
     const handleClickDots = (e) => {
@@ -50,10 +51,6 @@ export default function NavBar() {
                     </div>
 
                     <div className='busqueda-container'>
-                        {
-                            showInput ? <SearchBar /> : null
-                        }
-
                         <FontAwesomeIcon className='search-icon' icon={faMagnifyingGlass} onClick={handleClickSearch}></FontAwesomeIcon>
                     </div>
 
@@ -62,10 +59,6 @@ export default function NavBar() {
                         <NavLink className={({ isActive }) => (isActive ? 'active-style-navegacion' : 'inactive-style-navegacion')} to='/characters'>CHARACTERS</NavLink>
                         <NavLink className={({ isActive }) => (isActive ? 'active-style-navegacion' : 'inactive-style-navegacion')} to='/comics'>COMICS</NavLink>
                         <div className='d-flex align-items-center'>
-                            {
-                                showInput ? <SearchBar /> : null
-                            }
-
                             <FontAwesomeIcon className='search-icon' icon={faMagnifyingGlass} onClick={handleClickSearch}></FontAwesomeIcon>
                         </div>
 

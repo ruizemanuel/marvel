@@ -9,6 +9,7 @@ export default function SearchPage() {
     const [isLoading, setIsLoading] = useState(false)
     const [selectedRadio, setSelectedRadio] = useState('');
     const [searchParameter, setSearchParameter] = useState('');
+    const [error, setError] = useState(false)
 
     const handleChange = (e) => {
         wordRef.current.value = e.target.value
@@ -23,16 +24,15 @@ export default function SearchPage() {
         }
 
     };
-
+    
     const APIKEY = process.env.REACT_APP_API_APIKEY
     const HASH = process.env.REACT_APP_API_HASH
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log('HOLAAAAA', wordRef.current.value)
-
         if (selectedRadio && wordRef.current.value) {
             try {
+                setError(false)
                 setIsLoading(true)
                 const res = await fetch(`https://gateway.marvel.com/v1/public/${selectedRadio}?limit=20&ts=1&apikey=${APIKEY}&hash=${HASH}&${searchParameter}=${wordRef.current.value}`).then(result => result.json())
                 localStorage.setItem(`${selectedRadio}`, JSON.stringify(res.data.results));
@@ -44,10 +44,15 @@ export default function SearchPage() {
                 setIsLoading(false)
             }
         } else {
-            console.log('ERROR, DEBES SELECCIONAR COMICS O CHARACTERS y el campo no puede estar vacio')
+            setError(true)
         }
+    }
 
-
+    const ErrorMessage = () => {
+        return <div className='error-msg'>
+            <h2>ERROR!</h2>
+            <p>Comics or Characters must be selected and the search input can't be empty</p>
+        </div>
     }
 
     return (
@@ -104,6 +109,13 @@ export default function SearchPage() {
 
             </form>
 
+            {error ?
+            <ErrorMessage/>
+            :
+            null
+
+            }
+
             {!isLoading ?
 
                 <Container className='mt-5 mb-5'>
@@ -139,11 +151,6 @@ export default function SearchPage() {
                         }
                     </Row>
                 </Container>
-
-
-
-
-
                 :
                 <div className='spinner'>
                     <Spinner animation="border" variant="danger" />

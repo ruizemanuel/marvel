@@ -20,7 +20,6 @@ export default function Comics() {
     for (let i = 1; i <= Math.ceil(totalComics / comics.length); i++) {
       newPaginas.push(i);
     }
-    console.log('COMICS', newPaginas)
     setPaginas(newPaginas);
     setNumeroPages(newPaginas.slice(0, 7))
   }, [totalComics]);

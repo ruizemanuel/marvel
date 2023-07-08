@@ -186,6 +186,21 @@ body {
 
 }
 
+.btn-load-more {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 150px;
+    margin-bottom: 50px;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 25px;
+    color: white;
+    background-color: #ed1d24;
+    cursor: pointer;
+}
+
 
 @media (max-width: 991px) {
 

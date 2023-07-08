@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Col, Container, Row, Spinner } from 'react-bootstrap'
 import Item from '../components/Item'
 import PageNumbers from '../components/PageNumbers'
@@ -6,23 +6,24 @@ import PageNumbers from '../components/PageNumbers'
 export default function Characters() {
 
   const [characters, setCharacters] = useState([])
-  const [searchedCharacters, setSearchedCharacters] = useState([])
+  const [cuttedCharacters, setCuttedCharacters] = useState([])
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false)
   const [paginas, setPaginas] = useState([]);
   const [numeroPages, setNumeroPages] = useState([]);
+  const [offset, setOffset] = useState(0);
+  const [totalCharacters, setTotalCharacters] = useState(null)
 
-  const itemsPerPage = 6
 
   useEffect(() => {
     const newPaginas = [];
-    for (let i = 1; i <= Math.ceil(characters.length / itemsPerPage); i++) {
+    for (let i = 1; i <= Math.ceil(totalCharacters / characters.length); i++) {
       newPaginas.push(i);
     }
     setPaginas(newPaginas);
-    setNumeroPages(newPaginas.slice(0,7))
-  }, [characters]);
-  
+    setNumeroPages(newPaginas.slice(0, 7))
+  }, [totalCharacters]);
+
 
   const APIKEY = process.env.REACT_APP_API_APIKEY
   const HASH = process.env.REACT_APP_API_HASH
@@ -30,9 +31,11 @@ export default function Characters() {
   const getCharacters = async () => {
     try {
       setIsLoading(true)
-      const res = await fetch(`https://gateway.marvel.com/v1/public/characters?limit=60&ts=1&apikey=${APIKEY}&hash=${HASH}`).then(result => result.json())
+      const res = await fetch(`https://gateway.marvel.com/v1/public/characters?limit=100&ts=1&apikey=${APIKEY}&hash=${HASH}&offset=${offset}`).then(result => result.json())
+      localStorage.setItem('characters', JSON.stringify(res.data.results));
       setCharacters(res.data.results)
-      setSearchedCharacters(res.data.results.slice(0, 6))
+      setCuttedCharacters(res.data.results.slice(0, 10))
+      setTotalCharacters(res.data.total)
     } catch (e) {
       console.log('error', e)
     }
@@ -44,7 +47,11 @@ export default function Characters() {
 
   useEffect(() => {
     getCharacters()
-  }, [])
+  }, [offset])
+
+  const loadMore = () => {
+    setCuttedCharacters(characters.slice(0, cuttedCharacters.length + 10))
+  }
 
   return (
     <>
@@ -54,7 +61,7 @@ export default function Characters() {
           <Container className='mt-5'>
             <Row>
               {
-                searchedCharacters.map((character) => {
+                cuttedCharacters.map((character) => {
                   return <Col xs={12} sm={6} lg={4} xl={3}
                     key={character.id}
                     style={{ cursor: 'pointer' }}
@@ -71,6 +78,17 @@ export default function Characters() {
               }
             </Row>
           </Container>
+          {cuttedCharacters.length < 100 ?
+            <div className='d-flex justify-content-center mt-4'>
+              <div className="btn-load-more" onClick={loadMore}>
+                LOAD MORE
+              </div>
+            </div>
+            :
+            null
+          }
+
+
           <div className='d-flex justify-content-center mb-4'>
             {numeroPages.map((num, index) => {
               return <PageNumbers key={index}
@@ -78,11 +96,9 @@ export default function Characters() {
                 paginas={paginas}
                 numeroPages={numeroPages}
                 setNumeroPages={setNumeroPages}
-                setSearchedItems={setSearchedCharacters}
-                items={characters}
-                itemsPerPage={itemsPerPage}
                 currentPage={currentPage}
-                setCurrentPage={setCurrentPage} />
+                setCurrentPage={setCurrentPage}
+                setOffset={setOffset} />
             })}
           </div>
         </>

@@ -2,22 +2,19 @@ import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react'
 
-export default function PageNumbers({ num, paginas, numeroPages, setNumeroPages, setSearchedItems, items, itemsPerPage, currentPage, setCurrentPage }) {
+export default function PageNumbers({ num, paginas, numeroPages, setNumeroPages, currentPage, setCurrentPage, setOffset }) {
 
     const handleClickPage = (e) => {
-        const ultimoItem = Number(e.target.id) * itemsPerPage
-        const primerItem = ultimoItem - itemsPerPage
-        setSearchedItems(items.slice(primerItem, ultimoItem))
+        setOffset((Number(e.target.id) - 1) * 100)
         setCurrentPage(Number(e.target.id))
     }
 
     const handleClickArrow = (e, currentPage) => {
         if (currentPage !== paginas.length) {
             const numPagina = currentPage + 1
-            const ultimoItem = numPagina * itemsPerPage
-            const primerItem = ultimoItem - itemsPerPage
-            setSearchedItems(items.slice(primerItem, ultimoItem))
+            setOffset((numPagina - 1) * 100)
             setCurrentPage(numPagina)
+            
         }
 
         if (currentPage >= numeroPages.length) {
@@ -31,9 +28,7 @@ export default function PageNumbers({ num, paginas, numeroPages, setNumeroPages,
     const handleClickArrowLeft = (e, currentPage) => {
         if (currentPage <= paginas.length) {
             const numPagina = currentPage - 1
-            const ultimoItem = numPagina * itemsPerPage
-            const primerItem = ultimoItem - itemsPerPage
-            setSearchedItems(items.slice(primerItem, ultimoItem))
+            setOffset((numPagina - 1) * 100)
             setCurrentPage(numPagina)
         }
 

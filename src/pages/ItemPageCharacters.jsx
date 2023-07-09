@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom';
+import { useMarvel } from '../MarvelContext';
 
 export default function ItemPageCharacters() {
 
-  const characters = JSON.parse(localStorage.getItem('characters'));
+  const {personajes} = useMarvel()
   const { id } = useParams()
 
-  const item = characters.find((character) => Number(character.id) === Number(id))
+  const item = personajes.find((character) => Number(character.id) === Number(id))
 
   const [itemsToShow, setItemsToShow] = useState(item.comics.items.slice(0, 4))
   const [currentPage, setCurrentPage] = useState(1);

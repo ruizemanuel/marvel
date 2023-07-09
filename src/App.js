@@ -9,7 +9,7 @@ import NavBar from './components/NavBar';
 import ItemPageCharacters from './pages/ItemPageCharacters';
 import ItemPageComics from './pages/ItemPageComics';
 import Footer from './components/Footer';
-import Error404 from './pages/Error404';
+import ErrorPage from './pages/ErrorPage';
 import SearchPage from './pages/SearchPage';
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
         <Route path='search' element={<SearchPage />}></Route>
         <Route path='characters/:id' element={<ItemPageCharacters />}></Route>
         <Route path='comics/:id' element={<ItemPageComics />}></Route>
-        <Route path='*' element={<Error404 />}></Route>
+        <Route path='*' element={<ErrorPage text='404 page not found' />}></Route>
       </Routes>
       <Footer/>
     </BrowserRouter>

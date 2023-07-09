@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Col, Container, Row, Spinner } from 'react-bootstrap'
 import Item from '../components/Item'
 import PageNumbers from '../components/PageNumbers'
+import { useMarvel } from '../MarvelContext'
 
 export default function Characters() {
 
@@ -13,6 +14,8 @@ export default function Characters() {
   const [numeroPages, setNumeroPages] = useState([]);
   const [offset, setOffset] = useState(0);
   const [totalCharacters, setTotalCharacters] = useState(null)
+
+  const {setPersonajes} = useMarvel()
 
 
   useEffect(() => {
@@ -32,7 +35,7 @@ export default function Characters() {
     try {
       setIsLoading(true)
       const res = await fetch(`https://gateway.marvel.com/v1/public/characters?limit=100&ts=1&apikey=${APIKEY}&hash=${HASH}&offset=${offset}`).then(result => result.json())
-      localStorage.setItem('characters', JSON.stringify(res.data.results));
+      setPersonajes(res.data.results);
       setCharacters(res.data.results)
       setCuttedCharacters(res.data.results.slice(0, 10))
       setTotalCharacters(res.data.total)

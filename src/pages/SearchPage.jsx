@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { Col, Container, Row, Spinner } from 'react-bootstrap';
 import Item from '../components/Item';
+import { useMarvel } from '../MarvelContext';
 
 export default function SearchPage() {
 
@@ -10,6 +11,8 @@ export default function SearchPage() {
     const [selectedRadio, setSelectedRadio] = useState('');
     const [searchParameter, setSearchParameter] = useState('');
     const [error, setError] = useState(false)
+
+    const { setHistorietas, setPersonajes } = useMarvel()
 
     const handleChange = (e) => {
         wordRef.current.value = e.target.value
@@ -24,7 +27,7 @@ export default function SearchPage() {
         }
 
     };
-    
+
     const APIKEY = process.env.REACT_APP_API_APIKEY
     const HASH = process.env.REACT_APP_API_HASH
 
@@ -35,7 +38,12 @@ export default function SearchPage() {
                 setError(false)
                 setIsLoading(true)
                 const res = await fetch(`https://gateway.marvel.com/v1/public/${selectedRadio}?limit=20&ts=1&apikey=${APIKEY}&hash=${HASH}&${searchParameter}=${wordRef.current.value}`).then(result => result.json())
-                localStorage.setItem(`${selectedRadio}`, JSON.stringify(res.data.results));
+                if (selectedRadio === 'comics') {
+                    setHistorietas(res.data.results)
+                } else if (selectedRadio === 'characters') {
+                    setPersonajes(res.data.results)
+                }
+
                 setItems(res.data.results)
             } catch (e) {
                 console.log('error', e)
@@ -110,9 +118,9 @@ export default function SearchPage() {
             </form>
 
             {error ?
-            <ErrorMessage/>
-            :
-            null
+                <ErrorMessage />
+                :
+                null
 
             }
 

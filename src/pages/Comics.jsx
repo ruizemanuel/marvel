@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Col, Container, Row, Spinner } from 'react-bootstrap'
 import Item from '../components/Item'
 import PageNumbers from '../components/PageNumbers'
+import { useMarvel } from '../MarvelContext'
 
 export default function Comics() {
 
@@ -13,6 +14,8 @@ export default function Comics() {
   const [numeroPages, setNumeroPages] = useState([]);
   const [offset, setOffset] = useState(0);
   const [totalComics, setTotalComics] = useState(null)
+
+  const {setHistorietas} = useMarvel()
 
 
   useEffect(() => {
@@ -32,7 +35,7 @@ export default function Comics() {
       setIsLoading(true)
       const res = await fetch(`https://gateway.marvel.com/v1/public/comics?limit=100&ts=1&apikey=${APIKEY}&hash=${HASH}&offset=${offset}`).then(result => result.json())
       const onlyComics = res.data.results.filter((comic) => Number(comic.issueNumber) > 0)
-      localStorage.setItem('comics', JSON.stringify(onlyComics));
+      setHistorietas(onlyComics);
       setComics(onlyComics)
       setCuttedComics(onlyComics.slice(0, 10))
       setTotalComics(1000)
